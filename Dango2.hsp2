@@ -1,0 +1,1454 @@
+//CDNGC: DANGO The Puzzle 2
+//This script was decompiled from the original release.
+//All files have been merged, so part of the script is Midtime Engine HD, not the game.
+
+#include "hspext.as"
+#include "hspsock.as"
+
+	gsel 0, - 1
+	var_0 = 1
+	var_1 = 0
+	var_2 = 0
+	var_3 = 0
+	var_4 = 0
+	randomize
+	var_5 = 800
+	var_6 = ( var_5 / 16 ) * 9
+	var_7 = 800
+	var_8 = ( var_7 / 16 ) * 9
+	var_9 = var_7 * 100 / var_5
+	var_10 = ( dispx / 2 ) - ( var_5 / 2 )
+	var_11 = ( dispy / 2 ) - ( var_6 / 2 )
+	var_12 = "だんごたべほうだい２ ～だんごたちの挑戦状～"
+	var_13 = "(C)2011-2012 Project Dark★ All Rights Reserved."
+	var_14 = "CDNGC:J:A:A:20120811001"
+	var_15 = "CDNGC"
+	skiperr var_0
+	var_16 = 0
+	var_17 = ""
+	goto * label_1
+	var_18 var_19, 128, 128
+	var_18 var_20, 128, 128
+	var_21 = 0
+	var_22 = 0
+	var_23 = 0
+	var_24 = 0
+	var_25 = 0
+	var_26 = 0
+
+#include "Dango2.Functions.hsp2"
+
+*label_58
+	exist "Midtime.Update.dll"
+	if cmdline ! "NOBOOTDLL" {
+		if strsize ! -1 {
+			run "Midtime.Update.dll", "NOBOOTDLL"
+		}
+	}
+	var_34 = 2
+	var_29 = 3
+	var_35 = 4
+	var_48 = 10
+	var_45 = 25
+	var_42 = 30
+	var_193 = 100
+	buffer var_29, var_5, var_6
+	title "Midtime Engine HD - Debug: MainBuffer"
+	cls 4
+	buffer var_35, var_5, var_6
+	title "Midtime Engine HD - Debug: BackBuffer"
+	cls 4
+	repeat 5
+		buffer ( var_45 + cnt ), var_5, var_6
+		title "Midtime Engine HD - Debug: BG" + cnt
+		await
+	loop
+	repeat 15
+		buffer ( var_48 + cnt ), var_5, var_6
+		title "Midtime Engine HD - Debug: Object" + cnt
+		await
+	loop
+	buffer ( var_42 ), var_5, var_6
+	title "Midtime Engine HD - Debug: TEMP"
+	await
+	screen var_34, var_7, var_8, 0, var_10, var_11
+	title "Midtime Engine HD v1.28  -  Powered by DeepCave Exploration  -  http://deepcave.moe.hm/"
+	cls 4
+	gsel var_34, 2
+	gsel var_34, 1
+	if var_1 ! 1 {
+		await 500
+	}
+	title "" + var_12
+	if var_1 ! 1 {
+		if var_194 ! 1 {
+			alloc var_154, 1024
+			var_154 = ""
+			rnd var_155, 32768
+			rnd var_156, 32768
+			var_157 = var_155 * var_156
+			getenv "TEMP", var_154
+			var_154 = var_154 + "\\CheckUpdate_" + var_15 + "_" + var_157 + ".dat"
+			exist "Data\\bin\\checkUpdate.exe"
+			if strsize ! -1 {
+				exec "Data\\bin\\checkUpdate.exe " + var_154
+			}
+			var_17 = var_154
+			loadbg 0, "DNS.bmp"
+			drawbg
+			pos 250, 220
+			color 255, 255, 255
+			font "Meiryo", 24
+			mes "アップデートを確認しています..."
+			update_fade 10
+			var_195 = 200
+			var_196 = 210
+			var_197 = "●"
+			var_198 = 8
+			var_199 = 0
+			var_200 = 0
+			var_201 = 0
+			var_202 = 0
+			repeat ( 16 * 1 )
+				update 1
+				gsel var_35
+				await 16
+				if var_199 > ( var_198 * 32 ) {
+					var_199 = 0
+				}
+				var_203 = ( ( 255 / var_198 ) * var_199 )
+				color var_203 + var_200, var_203 + var_202, var_203 + var_201
+				pos ( var_195 ), ( var_196 )
+				mes var_197
+				var_199 + +
+				var_203 = ( ( 255 / var_198 ) * var_199 )
+				color var_203 + var_200, var_203 + var_202, var_203 + var_201
+				pos ( var_195 + 10 ), ( var_196 + 5 )
+				mes var_197
+				var_199 + +
+				var_203 = ( ( 255 / var_198 ) * var_199 )
+				color var_203 + var_200, var_203 + var_202, var_203 + var_201
+				pos ( var_195 + 15 ), ( var_196 + 15 )
+				mes var_197
+				var_199 + +
+				var_203 = ( ( 255 / var_198 ) * var_199 )
+				color var_203 + var_200, var_203 + var_202, var_203 + var_201
+				pos ( var_195 + 10 ), ( var_196 + 25 )
+				mes var_197
+				var_199 + +
+				var_203 = ( ( 255 / var_198 ) * var_199 )
+				color var_203 + var_200, var_203 + var_202, var_203 + var_201
+				pos ( var_195 ), ( var_196 + 30 )
+				mes var_197
+				var_199 + +
+				var_203 = ( ( 255 / var_198 ) * var_199 )
+				color var_203 + var_200, var_203 + var_202, var_203 + var_201
+				pos ( var_195 - 10 ), ( var_196 + 25 )
+				mes var_197
+				var_199 + +
+				var_203 = ( ( 255 / var_198 ) * var_199 )
+				color var_203 + var_200, var_203 + var_202, var_203 + var_201
+				pos ( var_195 - 15 ), ( var_196 + 15 )
+				mes var_197
+				var_199 + +
+				var_203 = ( ( 255 / var_198 ) * var_199 )
+				color var_203 + var_200, var_203 + var_202, var_203 + var_201
+				pos ( var_195 - 10 ), ( var_196 + 5 )
+				mes var_197
+				var_199 + +
+				update_user
+			loop
+			await 300
+			clear
+			update_fade 10
+		}
+	}
+	if var_1 ! 1 {
+		gsel var_29
+		font "Meiryo", 18
+		color 255, 255, 255
+		repeat 3
+			pos 40, ( var_6 - 60 )
+			mes "Loading"
+			update
+			await var_193
+			color 0, 0, 0
+			boxf 40, ( var_6 - 60 ), 150, var_6
+			color 255, 255, 255
+			pos 40, ( var_6 - 60 )
+			mes "Loading."
+			update
+			await var_193
+			color 0, 0, 0
+			boxf 40, ( var_6 - 60 ), 150, var_6
+			color 255, 255, 255
+			pos 40, ( var_6 - 60 )
+			mes "Loading.."
+			update
+			await var_193
+			color 0, 0, 0
+			boxf 40, ( var_6 - 60 ), 150, var_6
+			color 255, 255, 255
+			pos 40, ( var_6 - 60 )
+			mes "Loading..."
+			update
+			await var_193
+			color 0, 0, 0
+			boxf 40, ( var_6 - 60 ), 150, var_6
+			color 255, 255, 255
+		loop
+	}
+	if var_1 ! 1 {
+		exist var_17
+		if strsize ! -1 {
+			var_204 = ""
+			notesel var_204
+			noteload var_17
+			noteget var_205, 0
+			if var_205 = "Midtime.UpdateInfo" {
+				noteget var_206, 1
+				noteget var_207, 2
+				if var_14 ! var_206 {
+					loadbg 0, "DNS.bmp"
+					drawbg
+					pos 150, 220
+					color 255, 255, 255
+					font "Meiryo", 24
+					mes "アップデートデータをダウンロードしています..."
+					update_fade 10
+					var_195 = 100
+					var_196 = 210
+					var_197 = "●"
+					var_198 = 8
+					var_199 = 0
+					var_200 = 0
+					var_201 = 0
+					var_202 = 0
+					setfile "Update.bin"
+					dl_1 var_207, 1
+					if stat < 0 {
+						goto label_80
+					}
+					var_208 = 0
+					getheaddat var_208, "Content-Length"
+					int var_208
+					var_209 = 0
+					repeat
+						update 1
+						gsel var_35
+						await 16
+						if var_199 > ( var_198 * 32 ) {
+							var_199 = 0
+						}
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 ), ( var_196 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 + 10 ), ( var_196 + 5 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 + 15 ), ( var_196 + 15 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 + 10 ), ( var_196 + 25 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 ), ( var_196 + 30 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 - 10 ), ( var_196 + 25 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 - 15 ), ( var_196 + 15 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 - 10 ), ( var_196 + 5 )
+						mes var_197
+						var_199 + +
+						dl_2
+						var_209 + = stat
+						var_210 = ( ( ( var_209 / 10 ) * 100 ) / ( var_208 / 10 ) )
+						color 0, 150, 0
+						pos 150, 260
+						boxf 150 - 4, 280 - 4, 650 + 4, 300 + 4
+						color 0, 0, 0
+						pos 150, 260
+						boxf 150 - 2, 280 - 2, 650 + 2, 300 + 2
+						color 0, 255, 0
+						pos 150, 260
+						boxf 150, 280, ( 150 + ( var_210 * 5 ) ), 300
+						color 255, 255, 255
+						pos 150, 310
+						mes "" + var_210 + "% [" + var_209 + "/" + var_208 + "]"
+						if stat <= 0 {
+							break
+						}
+						update_user
+					loop
+					loadbg 0, "DNS.bmp"
+					drawbg
+					pos 150, 220
+					color 255, 255, 255
+					font "Meiryo", 24
+					mes "アップデートしています..."
+					update_fade 10
+					var_195 = 100
+					var_196 = 210
+					var_197 = "●"
+					var_198 = 8
+					var_199 = 0
+					var_200 = 0
+					var_201 = 0
+					var_202 = 0
+					alloc var_211, ( 1024 * 1024 * 4 )
+					alloc var_210, 4096
+					var_211 = ""
+					func_pipeexec var_211, "Data\\bin\\extUpdate.exe x -o+ Update.bin"
+					repeat
+						update 1
+						gsel var_35
+						await 16
+						if var_199 > ( var_198 * 32 ) {
+							var_199 = 0
+						}
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 ), ( var_196 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 + 10 ), ( var_196 + 5 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 + 15 ), ( var_196 + 15 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 + 10 ), ( var_196 + 25 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 ), ( var_196 + 30 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 - 10 ), ( var_196 + 25 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 - 15 ), ( var_196 + 15 )
+						mes var_197
+						var_199 + +
+						var_203 = ( ( 255 / var_198 ) * var_199 )
+						color var_203 + var_200, var_203 + var_202, var_203 + var_201
+						pos ( var_195 - 10 ), ( var_196 + 5 )
+						mes var_197
+						var_199 + +
+						update_user
+						func_pipeget var_210
+						if stat = 0 {
+							break
+						}
+					loop
+					exist "Midtime.Update.dll"
+					if strsize ! -1 {
+						run "Midtime.Update.dll", "NOBOOTDLL"
+					}
+				}
+			}
+		}
+	}
+*label_80
+	exist var_17
+	if strsize ! -1 {
+		delete var_17
+	}
+	clear
+	update_fade 10
+*label_83
+	loadobject 0, "MultiDango.bmp", 48, 48
+	loadobject 1, "OutButton.bmp", 426, 36
+	loadobject 7, "Select.bmp"
+	loadobject 8, "Decide.bmp"
+	clear
+	if var_1 ! 1 {
+		loadbg 0, "CircleLogo.bmp"
+		drawbg 0
+		update_fade 30
+		wait_skip 1000
+		clear
+		update_fade 30
+		loadbg 0, "TeamDangoLogo.bmp"
+		drawbg 0
+		update_fade 30
+		wait_skip 1000
+		clear
+		update_fade 30
+	}
+*label_84
+	exist var_158
+	if strsize ! -1 {
+		delete var_158
+		var_16 = 1
+	}
+	var_212 = 0
+	clear
+	mci "open Data/Sound/BGM_TItle.wav alias BGM_TITLE type MPEGVIDEO"
+	mci "seek BGM_TITLE to start"
+	mci "play BGM_TITLE"
+	loadbg 0, "BG.bmp"
+	loadbg 1, "TitleStr.bmp"
+	drawbg 1
+	show_appver
+	show_netstat
+	update_fade 30
+*label_85
+	drawbg 1
+	show_appver
+	show_netstat
+	update
+	color 0, 0, 0
+	if var_2 = 1 {
+		goto label_86
+	}
+	initmenu
+	notesel var_73
+	noteadd "だんごたべほうだい"
+	noteadd "さくらのたべかた講座 (HELP)"
+	noteadd "ランキング"
+	noteadd "設定"
+	noteadd "終了"
+	menu_boot 280, 250, 20, 32, 20
+	if var_89 = 0 {
+		await 100
+		goto label_87
+	}
+	clear
+	update_fade 30
+	mci "close BGM_TITLE"
+	notesel var_73
+	notemax var_213
+	if var_89 = ( var_213 - 1 ) {
+		goto label_45
+	}
+	if var_89 = 1 {
+		goto label_88
+	}
+	if var_89 = 2 {
+		goto label_89
+	}
+	if var_89 = 3 {
+		goto label_90
+	}
+	if var_89 = 4 {
+		goto label_90
+	}
+	goto label_91
+*label_87
+	drawbg 1
+	show_appver
+	show_netstat
+	update
+	initmenu
+	notesel var_73
+	noteadd "かんたん (EASY)"
+	noteadd "ひとりで挑戦 (STANDARD)"
+	noteadd "団子たちの挑戦状 (HARD)"
+	noteadd "戻る"
+	menu_boot 280, 250, 20, 32, 0
+	mci "close BGM_TITLE"
+	if var_89 = 0 {
+		goto label_92
+	}
+	if var_89 = 1 {
+		goto label_86
+	}
+	if var_89 = 2 {
+		goto label_93
+	}
+	await 100
+	goto label_85
+	stop
+*label_94
+	gettime var_214, 6
+	if var_214 = var_215 {
+		return
+	}
+	if var_125 > 0 {
+		var_125 - -
+	}
+	if var_125 = 0 {
+		var_124 = 0
+	}
+	var_113 - -
+	var_151 - -
+	var_153 + +
+	gettime var_215, 6
+	return
+*label_95
+	mci "open Data/Sound/BGM_GAME.wav alias BGM_GAME type MPEGVIDEO"
+	mci "seek BGM_GAME to start"
+	mci "play BGM_GAME repeat"
+	return
+*label_92
+	var_95 = 1
+	gosub label_95
+	initgame
+	initdango
+	var_99 = 3
+	var_216 = 33
+	var_113 = 60 * 10
+	var_149 = 10
+	repeat 3
+		adddango 1
+		verifydango
+		verifydango
+		verifydango
+	loop
+	createstage
+	update_fade 30
+	drawscore
+	drawdango
+	update_user
+	gettime var_215, 6
+	gettime var_214, 6
+	repeat
+		proceglobalvars
+		verifydango
+		drawscore
+		drawdango
+		drawbutton
+		proceinput
+		drawcursor
+		update_user
+		gosub label_94
+		if var_113 <= 0 {
+			var_103 = 1
+		}
+		if var_151 <= 0 {
+			adddango
+			var_151 = var_149
+		}
+		if var_103 = 1 {
+			break
+		}
+		await var_216
+	loop
+	goto label_98
+	stop
+*label_86
+	var_95 = 2
+	gosub label_95
+	initgame
+	initdango
+	var_99 = 6
+	var_216 = 33
+	var_113 = 60 * 5
+	var_149 = 8
+	repeat 5
+		adddango 1
+		verifydango
+		verifydango
+		verifydango
+	loop
+	createstage
+	update_fade 30
+	drawscore
+	drawdango
+	update_user
+	gettime var_215, 6
+	gettime var_214, 6
+	repeat
+		proceglobalvars
+		verifydango
+		drawscore
+		drawdango
+		drawbutton
+		proceinput
+		drawcursor
+		update_user
+		gosub label_94
+		if var_113 <= 0 {
+			var_103 = 1
+		}
+		if var_151 <= 0 {
+			adddango
+			var_151 = var_149
+		}
+		if var_103 = 1 {
+			break
+		}
+		await var_216
+	loop
+	goto label_98
+	stop
+*label_93
+	var_95 = 3
+	gosub label_95
+	initgame
+	initdango
+	var_99 = 9
+	var_216 = 33
+	var_113 = 60 * 2
+	var_149 = 8
+	repeat 5
+		adddango 1
+		verifydango
+		verifydango
+		verifydango
+	loop
+	createstage
+	update_fade 30
+	drawscore
+	drawdango
+	update_user
+	gettime var_215, 6
+	gettime var_214, 6
+	repeat
+		proceglobalvars
+		verifydango
+		drawscore
+		drawdango
+		drawbutton
+		proceinput
+		drawcursor
+		update_user
+		gosub label_94
+		if var_113 <= 0 {
+			var_103 = 1
+		}
+		if var_151 <= 0 {
+			adddango
+			var_151 = var_149
+		}
+		if var_103 = 1 {
+			break
+		}
+		await var_216
+	loop
+	goto label_98
+	stop
+*label_98
+	alloc var_217, 1024
+	var_217 = ""
+	var_218 = 0
+	var_218 = ( var_112 + var_153 + var_110 + ( var_111 * var_95 ) + ( var_139 + var_140 + var_141 + var_142 + var_143 + var_147 ) )
+	var_217 = "mode=" + var_95 + "&total=" + var_110 + "&totalout=" + var_111 + "&playtme=" + var_153 + "&score=" + var_112 + "&b1=" + var_139 + "&b2=" + var_140 + "&b3=" + var_141 + "&b4=" + var_142 + "&b5=" + var_143 + "&b6=" + var_147 + "&sign=" + var_218
+	mci "close BGM_GAME"
+	mci "seek DNG_GO to start"
+	mci "play DNG_GO"
+	loadbg 2, "GameOver.bmp"
+	drawbg 2
+	repeat 6
+		drawobjectm 0, 30, ( 150 + ( 48 * cnt ) ), 256, 0, cnt
+	loop
+	font "Meiryo", 32
+	color 220, 220, 220
+	repeat 6
+		pos 90, ( 150 + ( 48 * cnt ) )
+		mes "x"
+	loop
+	font "Meiryo", 36
+	color 255, 255, 255
+	pos 110, ( 150 + ( 48 * 0 ) )
+	mes var_139
+	pos 110, ( 150 + ( 48 * 1 ) )
+	mes var_140
+	pos 110, ( 150 + ( 48 * 2 ) )
+	mes var_141
+	pos 110, ( 150 + ( 48 * 3 ) )
+	mes var_142
+	pos 110, ( 150 + ( 48 * 4 ) )
+	mes var_143
+	pos 110, ( 150 + ( 48 * 5 ) )
+	mes var_147
+	font "Meiryo", 42
+	color 255, 255, 255
+	pos 480, 35
+	mes var_112
+	font "Meiryo", 30
+	color 255, 255, 255
+	pos 480, 125
+	mes var_110
+	pos 480, 165
+	mes var_111
+	pos 480, 210
+	mes "" + var_153 + " 秒"
+	if var_95 = 1 {
+		pos 480, 250
+		mes "EASY"
+	}
+	if var_95 = 2 {
+		pos 480, 250
+		mes "NORMAL"
+	}
+	if var_95 = 3 {
+		pos 480, 250
+		mes "HARD"
+	}
+	update_fade 30
+	wait_skip 10000
+	goto label_105
+*label_105
+	exist "USERNAME.dat"
+	if strsize = -1 {
+		var_212 = 1
+		goto label_90
+	}
+	var_204 = ""
+	notesel var_204
+	noteload "USERNAME.dat"
+	noteget var_219, 0
+	var_217 = var_217 + "&username=" + var_219
+	var_217 = var_217 + "&appcode=" + var_14
+	clear
+	update
+	loadbg 3, "DNS.bmp"
+	drawbg 3
+	pos 250, 220
+	color 255, 255, 255
+	font "Meiryo", 24
+	mes "ランキング登録中です..."
+	exec "Data\\bin\\setRanking.exe " + var_217
+	update_fade 10
+	var_195 = 200
+	var_196 = 210
+	var_197 = "●"
+	var_198 = 8
+	var_199 = 0
+	var_200 = 0
+	var_201 = 0
+	var_202 = 0
+	gsel var_35
+	font "Meiryo", 14
+	repeat ( 16 * 1 )
+		gsel var_35
+		await 16
+		if var_199 > ( var_198 * 32 ) {
+			var_199 = 0
+		}
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 ), ( var_196 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 + 10 ), ( var_196 + 5 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 + 15 ), ( var_196 + 15 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 + 10 ), ( var_196 + 25 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 ), ( var_196 + 30 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 - 10 ), ( var_196 + 25 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 - 15 ), ( var_196 + 15 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 - 10 ), ( var_196 + 5 )
+		mes var_197
+		var_199 + +
+		update_user
+	loop
+	clear
+	goto label_84
+*label_88
+	loadbg 3, "Help_Main.bmp"
+	drawbg 3
+	update_fade 30
+	initmenu
+	notesel var_73
+	noteadd "操作方法"
+	noteadd "何をすればいいの？"
+	noteadd "焦げているだんごに注意"
+	noteadd "出荷すれば高得点"
+	noteadd "モードごとの違い"
+	noteadd "高得点のヒント"
+	noteadd "もどる"
+	color 0, 0, 0
+	menu_boot 250, 140, 20, 32, 0
+	notesel var_73
+	notemax var_213
+	if var_89 = ( var_213 - 1 ) {
+		clear
+		update_fade 30
+		goto label_84
+	}
+	if var_89 = 0 {
+		var_220 = "Help_Control.bmp"
+		goto label_107
+	}
+	if var_89 = 1 {
+		var_220 = "Help_Basic.bmp"
+		goto label_107
+	}
+	if var_89 = 2 {
+		var_220 = "Help_Burn.bmp"
+		goto label_107
+	}
+	if var_89 = 3 {
+		var_220 = "Help_Out.bmp"
+		goto label_107
+	}
+	if var_89 = 4 {
+		var_220 = "Help_Diff.bmp"
+		goto label_107
+	}
+	if var_89 = 5 {
+		var_220 = "Help_Hint.bmp"
+		goto label_107
+	}
+	stop
+*label_107
+	loadbg 3, var_220
+	drawbg 3
+	update_fade 30
+	repeat
+		update 1
+		var_221 = cnt \ 20
+		if var_221 = 0 {
+			if var_222 = 0 {
+				var_222 = 1
+			}
+			else {
+				var_222 = 0
+			}
+		}
+		if var_222 = 1 {
+			gsel var_35
+			font "Meiryo", 16
+			color 0, 0, 0
+			pos 600, 400
+			mes "決定キー / ESC で戻ります。"
+		}
+		update_user
+		getkey var_223, ( 1 )
+		if var_223 = 1 {
+			break
+		}
+		getkey var_223, ( 2 )
+		if var_223 = 1 {
+			break
+		}
+		getkey var_223, ( 13 )
+		if var_223 = 1 {
+			break
+		}
+		getkey var_223, ( 27 )
+		if var_223 = 1 {
+			break
+		}
+		await 33
+	loop
+	goto label_88
+	stop
+	goto * label_109
+#deffunc config_menu_boot int, int, int, int, int
+	mref var_224, 0
+	mref var_225, 1
+	mref var_226, 2
+	mref var_227, 3
+	mref var_228, 4
+	if var_226 = 0 {
+		var_226 = 20
+	}
+	if var_227 = 0 {
+		var_227 = 32
+	}
+	var_229 = var_228 * 30
+	update 1
+	notesel var_73
+	notemax var_230
+	gsel var_29
+	pos var_224, var_225
+	font "Meiryo", var_226
+	mci "close MENU"
+	mci "close SELECT"
+	mci "open Data/Sound/Menu.wav alias MENU type MPEGVIDEO"
+	mci "open Data/Sound/Select.wav alias SELECT type MPEGVIDEO"
+	repeat var_230
+		noteget var_231, cnt
+		pos var_224, ( var_225 + ( var_227 * cnt ) )
+		mes var_231
+	loop
+	loadobject 14, "MenuCur.bmp"
+	var_232 = 0
+	var_233 = 0
+	repeat
+		update 1
+		var_234 = mousex * 100 / var_9
+		var_235 = mousey * 100 / var_9
+		stick var_236, 0, 1
+		if var_236 & 2 {
+			var_232 - -
+		}
+		if var_236 & 8 {
+			var_232 + +
+		}
+		if var_232 <= 0 {
+			var_232 = 0
+		}
+		if var_232 >= var_230 {
+			var_232 = var_230 - 1
+		}
+		if ( var_237 / 10 ) ! ( mousey / 10 ) {
+			var_238 = ( var_234 - var_224 ) / 1
+			var_239 = ( var_235 - var_225 ) / var_227
+			if var_239 >= 0 {
+				if var_239 < var_230 {
+					var_232 = var_239
+				}
+			}
+		}
+		title "" + var_239
+		var_237 = mousey
+		drawobject 14, ( var_224 - 42 ), ( var_225 + ( var_227 * var_232 ) )
+		if var_232 ! var_233 {
+			mci "seek MENU to start"
+			mci "play MENU"
+		}
+		if var_236 & 32 {
+			var_89 = var_232
+			mci "play SELECT"
+			return
+		}
+		if var_236 & 256 {
+			var_89 = var_232
+			mci "play SELECT"
+			return
+		}
+		if var_229 = 0 {
+			var_89 = ( var_230 )
+			return
+		}
+		update_user
+		var_233 = var_232
+		await 30
+		if var_229 ! 0 {
+			var_229 - -
+		}
+	loop
+	return
+#deffunc convkeyaz int
+	mref var_236, 0
+	var_240 = ""
+	poke var_240, 0, var_236
+	return
+#deffunc getkb int, int, int, int
+	repeat 10
+		getkey var_236, ( cnt + 48 )
+		if var_236 = 1 {
+			var_241 = var_241 + cnt
+			var_242 = ( cnt + 48 )
+			break
+		}
+	loop
+	repeat 10
+		getkey var_236, ( cnt + 96 )
+		if var_236 = 1 {
+			var_241 = var_241 + cnt
+			var_242 = ( cnt + 96 )
+			break
+		}
+	loop
+	repeat 26
+		getkey var_236, ( cnt + 65 )
+		if var_236 = 1 {
+			convkeyaz ( cnt + 65 )
+			var_241 = var_241 + var_240
+			var_242 = ( cnt + 65 )
+			break
+		}
+	loop
+	return
+#deffunc waitleavekb int, int, int, int
+	repeat
+		getkey var_236, var_242
+		if var_236 = 1 {
+			continue
+		}
+		break
+	loop
+	return
+*label_90
+*label_109
+	mci "close DNG_ERR"
+	mci "close MENU"
+	mci "close SELECT"
+	mci "open Data/Sound/Menu.wav alias MENU type MPEGVIDEO"
+	mci "open Data/Sound/Select.wav alias SELECT type MPEGVIDEO"
+	mci "open Data/Sound/DNGErr.wav alias DNG_ERR type MPEGVIDEO"
+	loadbg 4, "ConfigBG.bmp"
+	drawbg 4
+	update_fade 30
+	var_241 = ""
+	exist "USERNAME.dat"
+	if strsize ! -1 {
+		var_204 = ""
+		notesel var_204
+		noteload "USERNAME.dat"
+		noteget var_241, 0
+	}
+	var_243 = 0
+	var_244 = var_241
+	repeat
+		update 1
+		gsel var_35
+		objmode 2
+		color 255, 255, 255
+		font "Meiryo", 16
+		pos 80, 100
+		mes "ランキングで使用する名前を入力してください (最大8文字)"
+		font "Meiryo", 64
+		pos 200, 180
+		mes var_241
+		font "Meiryo", 24
+		if var_241 = "" {
+			pos 150, 200
+			mes "（キーボードで入力してください。）"
+		}
+		getkb
+		getkey var_245, 8
+		if var_245 = 1 {
+			var_242 = 8
+			strlen var_246, var_241
+			strmid var_204, var_241, ( var_246 - 1 ), 1
+			if var_204 ! "-" {
+				strmid var_241, var_241, 0, ( var_246 - 1 )
+			}
+			else {
+				strmid var_241, var_241, 0, ( var_246 - 2 )
+			}
+		}
+		getkey var_245, 46
+		if var_245 = 1 {
+			var_242 = 46
+			var_241 = ""
+		}
+		getkey var_223, ( 1 )
+		if var_223 = 1 {
+			var_242 = 1
+			var_243 = 1
+			if var_241 ! "" {
+				break
+			}
+			else {
+				mci "seek DNG_ERR to start"
+				mci "play DNG_ERR"
+			}
+		}
+		getkey var_223, ( 13 )
+		if var_223 = 1 {
+			var_242 = 13
+			var_243 = 1
+			if var_241 ! "" {
+				break
+			}
+			else {
+				mci "seek DNG_ERR to start"
+				mci "play DNG_ERR"
+			}
+		}
+		getkey var_223, ( 2 )
+		if var_223 = 1 {
+			var_243 = 0
+			break
+		}
+		getkey var_223, ( 27 )
+		if var_223 = 1 {
+			var_243 = 0
+			break
+		}
+		strlen var_246, var_241
+		if var_246 > 8 {
+			strmid var_241, var_241, 0, 8
+		}
+		if var_244 ! var_241 {
+			mci "seek SELECT to start"
+			mci "play SELECT"
+		}
+		var_244 = var_241
+		waitleavekb
+		var_221 = cnt \ 10
+		if var_221 = 0 {
+			if var_222 = 0 {
+				var_222 = 1
+			}
+			else {
+				var_222 = 0
+			}
+		}
+		if var_222 = 1 {
+			gsel var_35
+			font "Meiryo", 14
+			color 255, 255, 255
+			pos 75, 400
+			mes "決定キー / Enter で保存します。　廃棄キー / ESCでキャンセルします。　DELETEですべて削除します"
+		}
+		update_user
+		await 33
+	loop
+	if var_241 = "" {
+		var_241 = "DANGO2"
+	}
+	if var_243 = 1 {
+		mci "seek MENU to start"
+		mci "play MENU"
+		await 100
+		var_247 = var_241
+		notesel var_247
+		notesave "USERNAME.dat"
+	}
+	if var_212 = 1 {
+		var_212 = 0
+		goto label_105
+	}
+	goto label_84
+*label_89
+	var_89 = 0
+	loadbg 3, "DNS.bmp"
+	drawbg 3
+	update_fade 30
+	pos 250, 220
+	color 255, 255, 255
+	font "Meiryo", 24
+	mes "しばらくお待ちください..."
+	update_fade 10
+	var_195 = 200
+	var_196 = 210
+	var_197 = "●"
+	var_198 = 8
+	var_199 = 0
+	var_200 = 0
+	var_201 = 0
+	var_202 = 0
+	alloc var_154, 1024
+	getenv "TEMP", var_154, 1024
+	rnd var_155, 32768
+	rnd var_156, 32768
+	var_157 = var_155 * var_156
+	var_154 + = "\\Ranking_" + var_15 + "_" + var_157 + ".dat"
+	exec "Data\\bin\\getRanking " + var_154
+	gsel var_35
+	font "Meiryo", 14
+	repeat
+		update 1
+		gsel var_35
+		if var_199 > ( var_198 * 32 ) {
+			var_199 = 0
+		}
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 ), ( var_196 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 + 10 ), ( var_196 + 5 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 + 15 ), ( var_196 + 15 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 + 10 ), ( var_196 + 25 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 ), ( var_196 + 30 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 - 10 ), ( var_196 + 25 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 - 15 ), ( var_196 + 15 )
+		mes var_197
+		var_199 + +
+		var_203 = ( ( 255 / var_198 ) * var_199 )
+		color var_203 + var_200, var_203 + var_202, var_203 + var_201
+		pos ( var_195 - 10 ), ( var_196 + 5 )
+		mes var_197
+		var_199 + +
+		exist var_154
+		if strsize ! -1 {
+			var_89 = 2
+			break
+		}
+		var_221 = cnt \ 20
+		if var_221 = 0 {
+			if var_222 = 0 {
+				var_222 = 1
+			}
+			else {
+				var_222 = 0
+			}
+		}
+		if var_222 = 1 {
+			gsel var_35
+			font "Meiryo", 14
+			color 255, 255, 255
+			pos 250, 400
+			mes "右クリック / ESCでキャンセルします。"
+		}
+		getkey var_223, ( 2 )
+		if var_223 = 1 {
+			break
+		}
+		getkey var_223, ( 27 )
+		if var_223 = 1 {
+			break
+		}
+		update_user
+		await 16
+	loop
+	if var_89 = 2 {
+		goto label_122
+	}
+	clear
+	update_fade 30
+	goto label_84
+	stop
+*label_122
+	clear
+	update_fade 30
+*label_123
+	loadbg 3, "RankingBG.bmp"
+	drawbg 3
+	update_fade 30
+	notesel var_248
+	noteload "" + var_154
+	notesel var_248
+	notemax var_249
+	var_250 = ""
+	var_73 = ""
+	var_251 = 1
+	repeat var_249
+		notesel var_248
+		noteget var_204, cnt
+		if var_251 = 1 {
+			if var_204 = "---MENU---" {
+				var_251 = 0
+				continue
+			}
+		}
+		else {
+			if var_204 = "----------" {
+				var_251 = 1
+				break
+			}
+			notesel var_73
+			noteadd var_204
+		}
+	loop
+	notesel var_73
+	noteadd "タイトルへ戻る"
+	notemax var_213
+	color 0, 0, 0
+	menu_boot 250, 100, 20, 32, 30
+	if var_89 = ( var_213 - 1 ) {
+		delete var_154
+		clear
+		update_fade 30
+		goto label_84
+	}
+	goto label_125
+	stop
+*label_125
+	loadbg 3, "RankingBG.bmp"
+	drawbg 3
+	update
+	var_250 = ""
+	var_251 = 1
+	repeat var_249
+		notesel var_248
+		noteget var_204, cnt
+		if var_251 = 1 {
+			var_252 = "-----" + var_89 + "----"
+			if var_204 = var_252 {
+				var_251 = 0
+				continue
+			}
+		}
+		else {
+			if var_204 = "----------" {
+				var_251 = 1
+				break
+			}
+			notesel var_250
+			noteadd var_204
+		}
+	loop
+	var_253 = 32
+	notesel var_250
+	notemax var_249
+	var_254 = ( ( var_249 + 1 ) * ( var_253 * 15 / 10 ) )
+	buffer 31, 800, var_254, 0
+	gsel 31
+	cls
+	font "Meiryo", var_253
+	color 0, 0, 0
+	pos 100, 0
+	repeat var_249
+		noteget var_204, cnt
+		if cnt = 0 {
+			mes "" + var_204
+		}
+		if cnt ! 0 {
+			mes "" + cnt + ".  " + var_204
+		}
+	loop
+	var_255 = 0
+	var_256 = 4
+	var_257 = 0
+	var_258 = 0
+	var_259 = 50
+	var_222 = 0
+	var_260 = 0
+	var_260 = mousey
+	repeat
+		update 1
+		var_261 = 0
+		getkey var_223, ( 37 + cnt )
+		getkey var_223, ( 13 )
+		if var_223 = 1 {
+			break
+		}
+		getkey var_223, ( 2 )
+		if var_223 = 1 {
+			break
+		}
+		getkey var_223, ( 9 )
+		if var_223 = 1 {
+			break
+		}
+		getkey var_223, ( 27 )
+		if var_223 = 1 {
+			break
+		}
+		repeat 4
+			getkey var_223, ( 37 + cnt )
+			if var_223 = 1 {
+				if cnt = 1 {
+					var_261 = var_261 - var_259
+				}
+			}
+			if var_223 = 1 {
+				if cnt = 3 {
+					var_261 = var_261 + var_259
+				}
+			}
+		loop
+		getkey var_223, 1
+		if var_223 = 1 {
+			var_261 = 0
+			var_258 = ( ( var_260 - mousey ) / 10 )
+		}
+		else {
+			var_260 = mousey
+		}
+		var_221 = cnt \ 20
+		if var_221 = 0 {
+			if var_222 = 0 {
+				var_222 = 1
+			}
+			else {
+				var_222 = 0
+			}
+		}
+		if var_222 = 1 {
+			gsel var_35
+			font "Meiryo", 14
+			color 0, 0, 0
+			pos 220, 420
+			mes "破棄キー / ESCで戻ります, ↑↓キー / ドラッグで移動します"
+		}
+		var_204 = cnt \ var_256
+		if var_204 = 0 {
+			if var_258 ! var_261 {
+				var_262 = var_261 - var_258 / 4
+				if var_258 < var_261 {
+					var_258 + = 1 + var_262
+				}
+				else {
+					var_258 - = 1 - var_262
+				}
+			}
+		}
+		var_255 = var_255 + var_258
+		if var_255 >= ( var_254 - 100 ) {
+			var_255 = ( var_254 - 100 )
+		}
+		if var_255 <= -250 {
+			var_255 = -250
+		}
+		gsel var_35
+		color 255, 255, 255
+		gmode 4, var_5, var_6, 256
+		pos 20, 100
+		gcopy 31, 0, var_255, var_5, ( var_6 - 100 - 60 )
+		update_user
+		await 33
+	loop
+	update
+	goto label_123
+	stop
+*label_91
+	goto label_83
+*label_45
+	clear
+	update_fade 30
+	await 1000
+	end
+	if var_1 = 1 {
+		dialog "Exited."
+	}
+	end
