@@ -74,7 +74,7 @@ namespace LEContents {
 				}
 			} catch {
 			}
-			string uRL = string.Format("http://CDNGC.network.dark-x.net/Ranking/Register?Version={0}&dNetworkKey={8}&UserName={1}&Diff={2}&OutDango={3}&OutCount={4}&WorkTime={5}&Score={6}{7}", GameCommon.Version.Get(), text2, CDNGC.DiffLv, CDNGC.OutTotal, CDNGC.OutCount, CDNGC.WorkTime, CDNGC.Score, text, text3);
+			string uRL = string.Format("http://CDNGC.network.xprj.net/Ranking/Register?Version={0}&dNetworkKey={8}&UserName={1}&Diff={2}&OutDango={3}&OutCount={4}&WorkTime={5}&Score={6}{7}", GameCommon.Version.Get(), text2, CDNGC.DiffLv, CDNGC.OutTotal, CDNGC.OutCount, CDNGC.WorkTime, CDNGC.Score, text, text3);
 			if(text2 == "") {
 				Config_PlayerName.ReturnToResult = true;
 			}

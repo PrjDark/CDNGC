@@ -6,57 +6,57 @@ using Lightness.Resources;
 
 namespace LEContents {
 	public static class GameCommon {
-		public static VersionInfo Version;
+		public static VersionInfo Version = new VersionInfo("CDNGC:J:A:C:20230815001", "だんごたべほうだい２ ～新・だんご達の挑戦状～");
 
-		public static bool NetworkStatus;
+		public static bool NetworkStatus = false;
 
-		public static bool UpdateAvailable;
+		public static bool UpdateAvailable = false;
 
-		public static string[] DNetMarker;
+		public static string[] DNetMarker = null;
 
-		public static string[] DNetCInfo;
+		public static string[] DNetCInfo = null;
 
-		public static string[] DNetNewVer;
+		public static string[] DNetNewVer = null;
 
-		public static string NewVerURL;
+		public static string NewVerURL = "";
 
-		public static Texture TDNetCInfo;
+		public static Texture TDNetCInfo = Texture.CreateFromText(" ");
 
-		public static Texture DNErrMsg;
+		public static Texture DNErrMsg = Texture.CreateFromText(" ");
 
-		public static Texture DNNewVer;
+		public static Texture DNNewVer = Texture.CreateFromText(" ");
 
-		public static bool InitDNE;
+		public static bool InitDNE = false;
 
-		public static int DCIPos;
+		public static int DCIPos = 0;
 
 		public static ContentReturn CheckNetworkStatus() {
 			try {
 				UpdateAvailable = false;
-				DNet dNet = new DNet("http://CDNGC.network.dark-x.net/dNetwork.txt");
+				DNet dNet = new DNet("http://CDNGC.network.xprj.net/dNetwork.txt");
 				DNetMarker = dNet.GetStrings();
 				if(DNetMarker[0] == "d-Network") {
 					NetworkStatus = true;
-					DNetCInfo = new DNet("http://CDNGC.network.dark-x.net/Information/Circle.txt").GetStrings();
+					DNetCInfo = new DNet("http://CDNGC.network.xprj.net/Information/Circle.txt").GetStrings();
 					if(DNetCInfo[0] == "dNetwork.Information.Circle") {
 						Texture.SetFont("Meiryo");
 						Texture.SetTextSize(20);
 						Texture.SetTextColor(255, 255, 255);
 						TDNetCInfo = Texture.CreateFromText(DNetCInfo[1]);
 					}
-					DNet dNet2 = new DNet("http://CDNGC.update.network.dark-x.net/" + Version.GetNet() + ".txt");
+					DNet dNet2 = new DNet("http://CDNGC.update.network.xprj.net/" + Version.GetNet() + ".txt");
 					if(dNet2.Status <= 350) {
 						DNetNewVer = dNet2.GetStrings();
 					} else {
-						dNet2 = new DNet("http://CDNGC.update.network.dark-x.net/" + Version.APPID + "_" + Version.SKU + "_" + Version.TYPE + "_" + Version.REV + ".txt");
+						dNet2 = new DNet("http://CDNGC.update.network.xprj.net/" + Version.APPID + "_" + Version.SKU + "_" + Version.TYPE + "_" + Version.REV + ".txt");
 						if(dNet2.Status <= 350) {
 							DNetNewVer = dNet2.GetStrings();
 						} else {
-							dNet2 = new DNet("http://CDNGC.update.network.dark-x.net/" + Version.APPID + ".txt");
+							dNet2 = new DNet("http://CDNGC.update.network.xprj.net/" + Version.APPID + ".txt");
 							if(dNet2.Status <= 350) {
 								DNetNewVer = dNet2.GetStrings();
 							} else {
-								dNet2 = new DNet("http://CDNGC.update.network.dark-x.net/Version.txt");
+								dNet2 = new DNet("http://CDNGC.update.network.xprj.net/Version.txt");
 								if(dNet2.Status > 350) {
 									return ContentReturn.END;
 								}
@@ -120,21 +120,6 @@ namespace LEContents {
 			} catch {
 			}
 			return ContentReturn.OK;
-		}
-
-		static GameCommon() {
-			Version = new VersionInfo("CDNGC:J:B:B:20191231001", "だんごたべほうだい２ ～新・だんご達の挑戦状～");
-			NetworkStatus = false;
-			UpdateAvailable = false;
-			DNetMarker = null;
-			DNetCInfo = null;
-			DNetNewVer = null;
-			NewVerURL = "";
-			TDNetCInfo = Texture.CreateFromText(" ");
-			DNErrMsg = Texture.CreateFromText(" ");
-			DNNewVer = Texture.CreateFromText(" ");
-			InitDNE = false;
-			DCIPos = 0;
 		}
 	}
 }

@@ -33,7 +33,7 @@ namespace LEContents {
 			MenuTitleText = Texture.CreateFromText("サークルからのお知らせ");
 			Texture.SetTextSize(16);
 			HelpText = Texture.CreateFromText("決定・キャンセルボタンで前の画面に戻ります。 / ドラッグするとスクロールします。");
-			TextViewer.Initialize(new DNet("http://CDNGC.network.dark-x.net/Information/Circle.txt").GetStrings());
+			TextViewer.Initialize(new DNet("http://CDNGC.network.xprj.net/Information/Circle.txt").GetStrings());
 			GameCommon.CheckNetworkStatus();
 			return ContentReturn.OK;
 		}

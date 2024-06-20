@@ -54,7 +54,7 @@ namespace LEContents {
 				DecideSE.LoadFile("DNGOut.wav");
 			}
 			if(LoadingState == 3) {
-				DNet dNet = new DNet("http://CDNGC.network.dark-x.net/Ranking/Menu.txt");
+				DNet dNet = new DNet("http://CDNGC.network.xprj.net/Ranking/Menu.txt");
 				if(dNet.Status <= 350) {
 					MenuStr = dNet.GetStrings();
 					BG = Texture.CreateFromFile("HelpBG.png");
@@ -97,7 +97,7 @@ namespace LEContents {
 							return ContentReturn.CHANGE;
 						}
 						View = true;
-						DNet dNet2 = new DNet("http://CDNGC.network.dark-x.net/Ranking/Data" + RankMenu.Selected + ".txt");
+						DNet dNet2 = new DNet("http://CDNGC.network.xprj.net/Ranking/Data" + RankMenu.Selected + ".txt");
 						TextViewer.Initialize(dNet2.GetStrings());
 						if(dNet2.Status > 350) {
 							Error = true;

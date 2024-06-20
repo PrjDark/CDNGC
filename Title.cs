@@ -142,7 +142,7 @@ namespace LEContents {
 							Scene.Set("Config");
 							break;
 						case 4:
-							Process.Start("http://project.dark-x.net/game/CDNGC");
+							Process.Start("http://project.xprj.net/game/CDNGC");
 							Menu.Disabled = false;
 							Environment.Exit(0);
 							break;
