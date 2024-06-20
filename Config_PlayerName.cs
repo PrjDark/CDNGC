@@ -58,11 +58,11 @@ namespace LEContents {
 			Texture.SetFont("Meiryo");
 			Texture.SetTextSize(32);
 			Texture.SetTextColor(255, 255, 255);
-			MenuTitleText = Texture.CreateFromText("プレイヤー名の登録");
+			MenuTitleText = Texture.CreateFromText("Player Name Registration");
 			Texture.SetTextSize(24);
-			MainText = Texture.CreateFromText("ランキングで使用する公開プレイヤー名を入力してください。");
+			MainText = Texture.CreateFromText("Enter your public Ranking Player Name");
 			Texture.SetTextSize(20);
-			HelpText = Texture.CreateFromText("START / [Enter] : 決定 - SELECT / [ESC]: 戻る\n[Delete]: 全文字削除");
+			HelpText = Texture.CreateFromText("START / [Enter] : DECIDE - SELECT / [ESC]: BACK\n[Delete]: ERASE");
 			Texture.SetTextSize(14);
 			VerText = Texture.CreateFromText(GameCommon.Version.Get());
 			BG = Texture.CreateFromFile("ConfigBG.png");
@@ -91,7 +91,7 @@ namespace LEContents {
 					TPlayerName = Texture.CreateFromText(PlayerName);
 				} else {
 					Texture.SetTextSize(42);
-					TPlayerName = Texture.CreateFromText("(キーボードで入力してください)\u3000\u3000");
+					TPlayerName = Texture.CreateFromText("(Use keyboard)\u3000\u3000");
 				}
 			}
 			Core.Draw(TPlayerName, 520 - TPlayerName.Width / 2, 230);
@@ -134,41 +134,41 @@ namespace LEContents {
 				PlayerName = PlayerName.Substring(0, 8);
 				CancelSE.Play();
 			}
-			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.START) == 0) {
-				if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.MENU) != 0) {
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.START) != 0) {
+				if(PlayerName.Length == 0) {
 					CancelSE.Play();
-					if(!ReturnToResult) {
-						Scene.Set("Config");
-						UserData.Close();
-						Thread.Sleep(250);
-						return ContentReturn.CHANGE;
-					}
+					Control.LastKey = "";
+					return ContentReturn.OK;
 				}
-				Control.LastKey = "";
-				BlinkCount++;
-				return ContentReturn.OK;
+				DecideSE.Play();
+				Scene.Set("Config");
+				if(ReturnToResult) {
+					Scene.Set("Result");
+					ReturnToResult = false;
+				}
+				try {
+					UserDataFile.Close();
+					UserDataFile = new ContentStream();
+					byte[] bytes = Encoding.UTF8.GetBytes(PlayerName);
+					UserDataFile.Write(bytes, 0, bytes.Length);
+					UserDataFile.SaveFile("UserData.lec");
+				} catch {
+				}
+				Thread.Sleep(250);
+				return ContentReturn.CHANGE;
 			}
-			if(PlayerName.Length == 0) {
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.MENU) != 0) {
 				CancelSE.Play();
-				Control.LastKey = "";
-				return ContentReturn.OK;
+				if(!ReturnToResult) {
+					Scene.Set("Config");
+					UserData.Close();
+					Thread.Sleep(250);
+					return ContentReturn.CHANGE;
+				}
 			}
-			DecideSE.Play();
-			Scene.Set("Config");
-			if(ReturnToResult) {
-				Scene.Set("Result");
-				ReturnToResult = false;
-			}
-			try {
-				UserDataFile.Close();
-				UserDataFile = new ContentStream();
-				byte[] bytes = Encoding.UTF8.GetBytes(PlayerName);
-				UserDataFile.Write(bytes, 0, bytes.Length);
-				UserDataFile.SaveFile("UserData.lec");
-			} catch {
-			}
-			Thread.Sleep(250);
-			return ContentReturn.CHANGE;
+			Control.LastKey = "";
+			BlinkCount++;
+			return ContentReturn.OK;
 		}
 	}
 }

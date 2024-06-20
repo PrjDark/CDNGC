@@ -32,9 +32,9 @@ namespace LEContents {
 			Texture.SetFont("Meiryo");
 			Texture.SetTextSize(32);
 			Texture.SetTextColor(255, 255, 255);
-			MenuTitleText = Texture.CreateFromText("アップデート履歴");
+			MenuTitleText = Texture.CreateFromText("Version Update History");
 			Texture.SetTextSize(16);
-			HelpText = Texture.CreateFromText("決定・キャンセルボタンで前の画面に戻ります。 / ドラッグするとスクロールします。");
+			HelpText = Texture.CreateFromText("Press START / DECIDE button to back.  Drag / Up Down key to scroll.");
 			TextViewer.Initialize(new DNet("http://CDNGC.network.dark-x.net/Information/UpdateHistory.txt").GetStrings());
 			GameCommon.CheckNetworkStatus();
 			return ContentReturn.OK;

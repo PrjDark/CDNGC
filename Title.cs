@@ -53,19 +53,19 @@ namespace LEContents {
 			Texture.SetTextColor(0, 0, 0);
 			VersionText = Texture.CreateFromText(GameCommon.Version.Get() + "*");
 			MainMenu = new Menu("Meiryo", 26, 0, 0, 0, 255);
-			MainMenu.Add("だんごたべほうだい");
-			MainMenu.Add("さくらのたべかた講座");
-			MainMenu.Add("オンラインランキング");
-			MainMenu.Add("設定");
-			MainMenu.Add("手動アップデートの確認");
-			MainMenu.Add("終了");
+			MainMenu.Add("DANGO: The Puzzle");
+			MainMenu.Add("How to play");
+			MainMenu.Add("Online Ranking");
+			MainMenu.Add("Settings");
+			MainMenu.Add("Manually update check");
+			MainMenu.Add("End Game");
 			GameMenu = new Menu("Meiryo", 26, 0, 0, 0, 255);
-			GameMenu.Add("だんご試食会");
-			GameMenu.Add("のんびりたべほうだい");
-			GameMenu.Add("ひとりでたべほうだい");
-			GameMenu.Add("だんごたちの挑戦状");
-			GameMenu.Add("新・だんごたちの挑戦状");
-			GameMenu.Add("もどる");
+			GameMenu.Add("Dango all you want: taste");
+			GameMenu.Add("Dango all you want: slowly");
+			GameMenu.Add("Dango all you want: alone");
+			GameMenu.Add("Challange from Dango");
+			GameMenu.Add("New・Challange from Dango");
+			GameMenu.Add("Back");
 			FramesCount = 0;
 			Effect.Reset();
 			GameCommon.CheckNetworkStatus();
@@ -117,8 +117,9 @@ namespace LEContents {
 			Core.Draw(VersionText, 10, 10);
 			Core.Draw(NetStatText, 10, 35);
 			Core.Draw(ICStatIcon, 79, 35);
+			ContentReturn contentReturn = ContentReturn.OK;
 			if(!GameSelectMode) {
-				ContentReturn contentReturn = MainMenu.Exec(480, 400);
+				contentReturn = MainMenu.Exec(480, 400);
 				if(contentReturn == ContentReturn.CHANGE) {
 					FramesCount = 0;
 				}
@@ -153,8 +154,8 @@ namespace LEContents {
 				}
 			}
 			if(GameSelectMode) {
-				ContentReturn contentReturn2 = GameMenu.Exec(480, 400);
-				if(contentReturn2 == ContentReturn.END) {
+				contentReturn = GameMenu.Exec(480, 400);
+				if(contentReturn == ContentReturn.END) {
 					Effect.Reset();
 					NowFadeOut = true;
 					switch(GameMenu.Selected) {

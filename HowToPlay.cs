@@ -43,18 +43,18 @@ namespace LEContents {
 			Texture.SetFont("Consolas");
 			Texture.SetTextSize(32);
 			Texture.SetTextColor(0, 0, 0);
-			MenuTitleText = Texture.CreateFromText("さくらのたべかた講座\u3000\u3000");
+			MenuTitleText = Texture.CreateFromText("How to play    ");
 			MainMenu = new Menu("Meiryo", 26, 0, 0, 0, 255);
 			MainMenu.SetPointer("DangoMenu.png");
 			MainMenu.SetSE("Menu.wav", "DNGOut.wav");
-			MainMenu.Add("PCでの操作");
-			MainMenu.Add("アーケードでの操作");
-			MainMenu.Add("何をすればいいのか");
-			MainMenu.Add("焦げているだんごに注意！");
-			MainMenu.Add("出荷して高得点");
-			MainMenu.Add("難易度による違い");
-			MainMenu.Add("高得点のヒント");
-			MainMenu.Add("もどる");
+			MainMenu.Add("Keyboard");
+			MainMenu.Add("Arcade");
+			MainMenu.Add("How to play");
+			MainMenu.Add("Burnt Dango");
+			MainMenu.Add("Shipment");
+			MainMenu.Add("Difference in each modes");
+			MainMenu.Add("Hint for high score");
+			MainMenu.Add("Back");
 			ShowDetail = false;
 			HelpInit = false;
 			HelpImage = "";
@@ -110,12 +110,13 @@ namespace LEContents {
 				Texture.SetFont("Meiryo");
 				Texture.SetTextSize(24);
 				Texture.SetTextColor(0, 0, 0);
-				HelpHelpTex = Texture.CreateFromText("クリック または 決定ボタン で前の画面へ戻ります");
+				HelpHelpTex = Texture.CreateFromText("Click or DECIDE key to back.");
 				HelpInit = true;
 				Counter = 0;
 			} else {
 				Core.Draw(HelpImageTex, 0, 0);
 				int counter = Counter;
+				int num = 30;
 				Counter++;
 				if(Counter > 60) {
 					Counter = 0;

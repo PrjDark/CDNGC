@@ -4,10 +4,9 @@ using Lightness.DNetwork;
 using Lightness.Framework;
 using Lightness.Graphic;
 using Lightness.Resources;
-using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
+using System.Reflection;
 using System.Text;
 
 namespace LEContents {
@@ -42,9 +41,6 @@ namespace LEContents {
 
 		public static DNet D = null;
 
-		[DllImport("kernel32.dll", SetLastError = true)]
-		public static extern uint GetModuleFileName([In] IntPtr hModule, [Out] StringBuilder lpFilename, [In][MarshalAs(UnmanagedType.U4)] int nSize);
-
 		public static ContentReturn Initialize() {
 			PGreen = new Paint(0, 96, 0, 255);
 			Green = PGreen.ToTexture();
@@ -56,7 +52,7 @@ namespace LEContents {
 			Texture.SetFont("Meiryo");
 			Texture.SetTextSize(32);
 			Texture.SetTextColor(255, 255, 255);
-			MenuTitleText = Texture.CreateFromText("オンライン アップデート");
+			MenuTitleText = Texture.CreateFromText("Online Update");
 			Texture.SetTextSize(24);
 			MainText = Texture.CreateFromText("Please wait...");
 			State = 0;
@@ -78,14 +74,14 @@ namespace LEContents {
 			}
 			if(State == 1) {
 				Pct = (long)D.SFEXReadTotal * 1000L / D.FileSize;
-				MainText = Texture.CreateFromText(string.Format("ダウンロードしています... {0}/{1}\u3000", D.SFEXReadTotal, D.FileSize, Pct));
+				MainText = Texture.CreateFromText(string.Format("Downloading... {0}/{1}\u3000", D.SFEXReadTotal, D.FileSize, Pct));
 				if(D.SaveFileEx(FilePath) == ContentReturn.END) {
 					Pct = 1000L;
 					State = 2;
 				}
 			}
 			if(State == 2) {
-				MainText = Texture.CreateFromText(string.Format("確認中..."));
+				MainText = Texture.CreateFromText(string.Format("Verifying..."));
 				ReadOptions readOptions = new ReadOptions();
 				readOptions.Encoding = Encoding.GetEncoding("shift_jis");
 				try {
@@ -94,7 +90,7 @@ namespace LEContents {
 					Scene.Set("PDAdvertise");
 					return ContentReturn.CHANGE;
 				}
-				Z.Password = "DNGST:J:A:A";
+				Z.Password = "CDNGC:J:B:A";
 				Z.ExtractExistingFile = ExtractExistingFileAction.OverwriteSilently;
 				foreach(string entryFileName in Z.EntryFileNames) {
 					FileList[TotalCount] = entryFileName;
@@ -108,7 +104,7 @@ namespace LEContents {
 					Pct = Count * 1000 / TotalCount;
 				} catch {
 				}
-				MainText = Texture.CreateFromText(string.Format("更新しています... {0}/{1}\u3000", Count + 1, TotalCount));
+				MainText = Texture.CreateFromText(string.Format("Updating... {0}/{1}\u3000", Count + 1, TotalCount));
 				ZipEntry zipEntry = Z[FileList[Count]];
 				zipEntry.Extract(".", ExtractExistingFileAction.OverwriteSilently);
 				Count++;
@@ -121,13 +117,11 @@ namespace LEContents {
 			}
 			if(State == 4) {
 				Pct = 0L;
-				MainText = Texture.CreateFromText(string.Format("完了しました。再起動します...\u3000"));
+				MainText = Texture.CreateFromText(string.Format("Completed。Restarting...\u3000"));
 				Count++;
 				if(Count > TotalCount) {
-					StringBuilder stringBuilder = new StringBuilder(65535);
-					GetModuleFileName(IntPtr.Zero, stringBuilder, stringBuilder.Capacity);
 					Process process = new Process();
-					process.StartInfo.FileName = stringBuilder.ToString();
+					process.StartInfo.FileName = Assembly.GetEntryAssembly().Location;
 					process.StartInfo.Arguments = "";
 					process.Start();
 					return ContentReturn.END;

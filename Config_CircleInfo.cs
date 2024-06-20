@@ -30,9 +30,9 @@ namespace LEContents {
 			Texture.SetFont("Meiryo");
 			Texture.SetTextSize(32);
 			Texture.SetTextColor(255, 255, 255);
-			MenuTitleText = Texture.CreateFromText("サークルからのお知らせ");
+			MenuTitleText = Texture.CreateFromText("Information");
 			Texture.SetTextSize(16);
-			HelpText = Texture.CreateFromText("決定・キャンセルボタンで前の画面に戻ります。 / ドラッグするとスクロールします。");
+			HelpText = Texture.CreateFromText("Press START / DECIDE button to back.  Drag / Up Down key to scroll.");
 			TextViewer.Initialize(new DNet("http://CDNGC.network.dark-x.net/Information/Circle.txt").GetStrings());
 			GameCommon.CheckNetworkStatus();
 			return ContentReturn.OK;

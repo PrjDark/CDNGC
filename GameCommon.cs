@@ -33,8 +33,7 @@ namespace LEContents {
 		public static ContentReturn CheckNetworkStatus() {
 			try {
 				UpdateAvailable = false;
-				DNet dNet = new DNet("http://CDNGC.network.dark-x.net/dNetwork.txt");
-				DNetMarker = dNet.GetStrings();
+				DNetMarker = new DNet("http://CDNGC.network.dark-x.net/dNetwork.txt").GetStrings();
 				if(DNetMarker[0] == "d-Network") {
 					NetworkStatus = true;
 					DNetCInfo = new DNet("http://CDNGC.network.dark-x.net/Information/Circle.txt").GetStrings();
@@ -44,40 +43,28 @@ namespace LEContents {
 						Texture.SetTextColor(255, 255, 255);
 						TDNetCInfo = Texture.CreateFromText(DNetCInfo[1]);
 					}
-					DNet dNet2 = new DNet("http://CDNGC.update.network.dark-x.net/" + Version.GetNet() + ".txt");
-					if(dNet2.Status <= 350) {
-						DNetNewVer = dNet2.GetStrings();
+					DNet dNet = new DNet("http://CDNGC.update.network.dark-x.net/" + Version.GetNet() + ".txt");
+					if(dNet.Status <= 350) {
+						DNetNewVer = dNet.GetStrings();
 					} else {
-						dNet2 = new DNet("http://CDNGC.update.network.dark-x.net/" + Version.APPID + "_" + Version.SKU + "_" + Version.TYPE + "_" + Version.REV + ".txt");
-						if(dNet2.Status <= 350) {
-							DNetNewVer = dNet2.GetStrings();
+						dNet = new DNet("http://CDNGC.update.network.dark-x.net/" + Version.APPID + "_" + Version.SKU + "_" + Version.TYPE + "_" + Version.REV + ".txt");
+						if(dNet.Status <= 350) {
+							DNetNewVer = dNet.GetStrings();
 						} else {
-							dNet2 = new DNet("http://CDNGC.update.network.dark-x.net/" + Version.APPID + ".txt");
-							if(dNet2.Status <= 350) {
-								DNetNewVer = dNet2.GetStrings();
+							dNet = new DNet("http://CDNGC.update.network.dark-x.net/" + Version.APPID + ".txt");
+							if(dNet.Status <= 350) {
+								DNetNewVer = dNet.GetStrings();
 							} else {
-								dNet2 = new DNet("http://CDNGC.update.network.dark-x.net/Version.txt");
-								if(dNet2.Status > 350) {
+								dNet = new DNet("http://CDNGC.update.network.dark-x.net/Version.txt");
+								if(dNet.Status > 350) {
 									return ContentReturn.END;
 								}
-								DNetNewVer = dNet2.GetStrings();
+								DNetNewVer = dNet.GetStrings();
 							}
 						}
 					}
 					NewVerURL = DNetNewVer[1];
-					int num = 0;
-					int num2 = 0;
-					int num3 = 0;
-					int num4 = 1;
-					try {
-						num = int.Parse(Version.DATE);
-						num3 = int.Parse(Version.CNT);
-						VersionInfo versionInfo = new VersionInfo(DNetNewVer[0]);
-						num2 = int.Parse(versionInfo.DATE);
-						num4 = int.Parse(versionInfo.CNT);
-					} catch {
-					}
-					if(num < num2 || (num == num2 && num3 < num4)) {
+					if(Version.Get() != DNetNewVer[0]) {
 						Debug.Log('I', "DNetwork", "New Version is detected: {0}", DNetNewVer[0]);
 						UpdateAvailable = true;
 					} else {
@@ -123,7 +110,7 @@ namespace LEContents {
 		}
 
 		static GameCommon() {
-			Version = new VersionInfo("CDNGC:J:B:B:20191231001", "だんごたべほうだい２ ～新・だんご達の挑戦状～");
+			Version = new VersionInfo("CDNGC:E:B:B:20191231002", "DANGO: The Puzzle 3 - Skewered Dangos -");
 			NetworkStatus = false;
 			UpdateAvailable = false;
 			DNetMarker = null;
