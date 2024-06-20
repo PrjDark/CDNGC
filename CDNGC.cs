@@ -153,26 +153,26 @@ namespace LEContents {
 			StartDangoLines = 3;
 			BurnPercent = 0;
 			if(LV == 0) {
-				SDiffLv = "試食会";
+				SDiffLv = "DAYW: Taste";
 				BGFile = "BG0.png";
 				AddSpeed = 10;
 				Remain = 180;
 			}
 			if(LV == 1) {
-				SDiffLv = "のんびり";
+				SDiffLv = "DAYW: slowly";
 				BurnPercent = 100;
 				AddSpeed = 10;
 				Remain = 120;
 			}
 			if(LV == 2) {
-				SDiffLv = "ひとりで";
+				SDiffLv = "DAYW: alone";
 				StartDangoLines = 5;
 				BurnPercent = 200;
 				AddSpeed = 5;
 				Remain = 120;
 			}
 			if(LV == 3) {
-				SDiffLv = "挑戦状";
+				SDiffLv = "Challange";
 				StartDangoLines = 10;
 				BurnPercent = 300;
 				BGFile = "BG3.png";
@@ -180,7 +180,7 @@ namespace LEContents {
 				AddSpeed = 5;
 			}
 			if(LV == 4) {
-				SDiffLv = "新挑戦状";
+				SDiffLv = "New Challange";
 				StartDangoLines = 0;
 				BurnPercent = 300;
 				BGFile = "BG4.png";
@@ -338,83 +338,83 @@ namespace LEContents {
 			if(Selected) {
 				Core.Draw(Pointer[1], SelPointerX * 64 + 160, SelPointerY * 64 + 128);
 			}
-			if(!GameEnd) {
-				Effect.Fadein();
-				if(FCounter >= 60) {
-					FCounter = 0;
-					Remain--;
-					WorkTime++;
-					if(WorkTime % AddSpeed == 0) {
-						AddDangoLine();
-					}
+			if(GameEnd) {
+				if(!FadeOut) {
+					GameBGM.Close();
+					GameOverSE.Play();
+					Effect.Reset();
+					FadeOut = true;
 				}
-				FCounter++;
-				if(Remain == 0) {
-					GameEnd = true;
-				}
-				if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.MENU) != 0) {
-					GameEnd = true;
-				}
-				int analogAsButtonOnce = VIOEx.GetAnalogAsButtonOnce(0, VirtualIO.AnalogID.LX);
-				int analogAsButtonOnce2 = VIOEx.GetAnalogAsButtonOnce(0, VirtualIO.AnalogID.LY);
-				int analogAsButtonOnce3 = VIOEx.GetAnalogAsButtonOnce(0, VirtualIO.AnalogID.RX);
-				int analogAsButtonOnce4 = VIOEx.GetAnalogAsButtonOnce(0, VirtualIO.AnalogID.RY);
-				if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.DOWN) != 0 || analogAsButtonOnce2 > 0 || analogAsButtonOnce4 > 0) {
-					PointerY++;
-				}
-				if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.UP) != 0 || analogAsButtonOnce2 < 0 || analogAsButtonOnce4 < 0) {
-					PointerY--;
-				}
-				if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.RIGHT) != 0 || analogAsButtonOnce > 0 || analogAsButtonOnce3 > 0) {
-					PointerX++;
-				}
-				if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.LEFT) != 0 || analogAsButtonOnce < 0 || analogAsButtonOnce3 < 0) {
-					PointerX--;
-				}
-				if(OldPXY - (VirtualIO.RTPointX + VirtualIO.RTPointY) >= 8 || VirtualIO.RTPointX + VirtualIO.RTPointY - OldPXY >= 8) {
-					OldPXY = VirtualIO.RTPointX + VirtualIO.RTPointY;
-					PointerX = (VirtualIO.RTPointX - 160) / 64;
-					PointerY = (VirtualIO.RTPointY - 128) / 64;
-				}
-				if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.START) != 0) {
-					ProceOutButton();
-				}
-				if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.CANCEL) != 0 || VIOEx.GetPointOnce(VirtualIO.PointID.R) != 0) {
-					ProceClick(true);
-				}
-				if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.OK) != 0) {
-					ProceClick(false);
-				}
-				if(VIOEx.GetPointOnce(VirtualIO.PointID.L) != 0) {
-					if(280 <= VirtualIO.RTPointX && VirtualIO.RTPointX <= 700 && 80 <= VirtualIO.RTPointY && VirtualIO.RTPointY <= 115) {
-						ProceOutButton();
-					} else {
-						ProceClick(false);
-					}
-				}
-				if(PointerX < 0) {
-					PointerX = 0;
-				}
-				if(PointerY < 0) {
-					PointerY = 0;
-				}
-				if(PointerX >= 12) {
-					PointerX = 11;
-				}
-				if(PointerY >= 6) {
-					PointerY = 5;
+				if(Effect.Fadeout() == ContentReturn.END) {
+					Scene.Set("Result");
+					return ContentReturn.CHANGE;
 				}
 				return ContentReturn.OK;
 			}
-			if(!FadeOut) {
-				GameBGM.Close();
-				GameOverSE.Play();
-				Effect.Reset();
-				FadeOut = true;
+			Effect.Fadein();
+			if(FCounter >= 60) {
+				FCounter = 0;
+				Remain--;
+				WorkTime++;
+				if(WorkTime % AddSpeed == 0) {
+					AddDangoLine();
+				}
 			}
-			if(Effect.Fadeout() == ContentReturn.END) {
-				Scene.Set("Result");
-				return ContentReturn.CHANGE;
+			FCounter++;
+			if(Remain == 0) {
+				GameEnd = true;
+			}
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.MENU) != 0) {
+				GameEnd = true;
+			}
+			int analogAsButtonOnce = VIOEx.GetAnalogAsButtonOnce(0, VirtualIO.AnalogID.LX);
+			int analogAsButtonOnce2 = VIOEx.GetAnalogAsButtonOnce(0, VirtualIO.AnalogID.LY);
+			int analogAsButtonOnce3 = VIOEx.GetAnalogAsButtonOnce(0, VirtualIO.AnalogID.RX);
+			int analogAsButtonOnce4 = VIOEx.GetAnalogAsButtonOnce(0, VirtualIO.AnalogID.RY);
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.DOWN) != 0 || analogAsButtonOnce2 > 0 || analogAsButtonOnce4 > 0) {
+				PointerY++;
+			}
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.UP) != 0 || analogAsButtonOnce2 < 0 || analogAsButtonOnce4 < 0) {
+				PointerY--;
+			}
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.RIGHT) != 0 || analogAsButtonOnce > 0 || analogAsButtonOnce3 > 0) {
+				PointerX++;
+			}
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.LEFT) != 0 || analogAsButtonOnce < 0 || analogAsButtonOnce3 < 0) {
+				PointerX--;
+			}
+			if(OldPXY - (VirtualIO.RTPointX + VirtualIO.RTPointY) >= 8 || VirtualIO.RTPointX + VirtualIO.RTPointY - OldPXY >= 8) {
+				OldPXY = VirtualIO.RTPointX + VirtualIO.RTPointY;
+				PointerX = (VirtualIO.RTPointX - 160) / 64;
+				PointerY = (VirtualIO.RTPointY - 128) / 64;
+			}
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.START) != 0) {
+				ProceOutButton();
+			}
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.CANCEL) != 0 || VIOEx.GetPointOnce(VirtualIO.PointID.R) != 0) {
+				ProceClick(true);
+			}
+			if(VIOEx.GetButtonOnce(0, VirtualIO.ButtonID.OK) != 0) {
+				ProceClick(false);
+			}
+			if(VIOEx.GetPointOnce(VirtualIO.PointID.L) != 0) {
+				if(280 <= VirtualIO.RTPointX && VirtualIO.RTPointX <= 700 && 80 <= VirtualIO.RTPointY && VirtualIO.RTPointY <= 115) {
+					ProceOutButton();
+				} else {
+					ProceClick(false);
+				}
+			}
+			if(PointerX < 0) {
+				PointerX = 0;
+			}
+			if(PointerY < 0) {
+				PointerY = 0;
+			}
+			if(PointerX >= 12) {
+				PointerX = 11;
+			}
+			if(PointerY >= 6) {
+				PointerY = 5;
 			}
 			return ContentReturn.OK;
 		}
@@ -456,8 +456,9 @@ namespace LEContents {
 		}
 
 		public static ContentReturn ProceDango() {
+			int num = 0;
 			for(int i = 0; i < DangoTable.Length; i++) {
-				int num = 0;
+				num = 0;
 				for(int j = 0; j < DangoTable[i].Length; j++) {
 					num += DangoTable[i][j];
 				}
@@ -517,15 +518,15 @@ namespace LEContents {
 			AddScore(BoxTotal * 800);
 			if(num == 1) {
 				AddScore(BoxTotal * 2500);
-				text += "\n１種類パック！";
+				text += "\nOnly 1 Type！";
 			}
 			if(!array[6]) {
 				AddScore(BoxTotal * 1000);
-				text += "\n焦げてない！";
+				text += "\nNo burnt！";
 			}
 			if(array[6] && OutDangoCount[6] == BoxTotal) {
 				AddScore(BoxTotal * 500);
-				text += "\nおこげセット！";
+				text += "\nAll burnt！";
 			}
 			int num2 = 0;
 			for(int j = 1; j < DangoTypes; j++) {
@@ -535,7 +536,7 @@ namespace LEContents {
 			}
 			if(num2 == DangoTypes - 1) {
 				AddScore(BoxTotal * 10000 / 4);
-				text += "\n全部同じ数！";
+				text += "\nSame count!";
 			}
 			Debug.Log('*', "Game", "SPName: {0}", text);
 			Texture.SetTextSize(24);

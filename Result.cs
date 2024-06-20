@@ -44,9 +44,9 @@ namespace LEContents {
 			Texture.SetTextSize(36);
 			TDiffLv = Texture.CreateFromText(CDNGC.SDiffLv);
 			TOutCountTotal = new Texture[CDNGC.DangoTypes];
-			TTotalOut = Texture.CreateFromText(string.Format("{0} 回", CDNGC.OutTotal));
-			TTotalCount = Texture.CreateFromText(string.Format("{0} 個", CDNGC.OutCount));
-			TWorkTime = Texture.CreateFromText(string.Format("{0} 秒", CDNGC.WorkTime));
+			TTotalOut = Texture.CreateFromText(string.Format("{0}", CDNGC.OutTotal));
+			TTotalCount = Texture.CreateFromText(string.Format("{0}", CDNGC.OutCount));
+			TWorkTime = Texture.CreateFromText(string.Format("{0} s", CDNGC.WorkTime));
 			Texture.SetTextSize(24);
 			string text = "";
 			for(int i = 0; i < CDNGC.DangoTypes; i++) {

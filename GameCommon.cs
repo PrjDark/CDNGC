@@ -6,7 +6,7 @@ using Lightness.Resources;
 
 namespace LEContents {
 	public static class GameCommon {
-		public static VersionInfo Version = new VersionInfo("CDNGC:J:A:C:20230815001", "だんごたべほうだい２ ～新・だんご達の挑戦状～");
+		public static VersionInfo Version = new VersionInfo("CDNGC:E:A:C:20230815001", "DANGO: The Puzzle 3 - Skewered Dangos -"");
 
 		public static bool NetworkStatus = false;
 
@@ -60,24 +60,12 @@ namespace LEContents {
 								if(dNet2.Status > 350) {
 									return ContentReturn.END;
 								}
-								DNetNewVer = dNet2.GetStrings();
+								DNetNewVer = dNet.GetStrings();
 							}
 						}
 					}
 					NewVerURL = DNetNewVer[1];
-					int num = 0;
-					int num2 = 0;
-					int num3 = 0;
-					int num4 = 1;
-					try {
-						num = int.Parse(Version.DATE);
-						num3 = int.Parse(Version.CNT);
-						VersionInfo versionInfo = new VersionInfo(DNetNewVer[0]);
-						num2 = int.Parse(versionInfo.DATE);
-						num4 = int.Parse(versionInfo.CNT);
-					} catch {
-					}
-					if(num < num2 || (num == num2 && num3 < num4)) {
+					if(Version.Get() != DNetNewVer[0]) {
 						Debug.Log('I', "DNetwork", "New Version is detected: {0}", DNetNewVer[0]);
 						UpdateAvailable = true;
 					} else {

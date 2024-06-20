@@ -40,20 +40,20 @@ namespace LEContents {
 			Texture.SetFont("Meiryo");
 			Texture.SetTextSize(32);
 			Texture.SetTextColor(255, 255, 255);
-			MenuTitleText = Texture.CreateFromText("設定");
+			MenuTitleText = Texture.CreateFromText("Settings");
 			Texture.SetTextSize(14);
 			VerText = Texture.CreateFromText(GameCommon.Version.Get());
 			MainMenu = new Menu("Meiryo", 26, 255, 255, 255, 255);
 			MainMenu.SetPointer("DangoMenu.png");
 			MainMenu.SetSE("Menu.wav", "DNGOut.wav");
-			MainMenu.Add("プレイヤー名の変更");
+			MainMenu.Add("Change Player Name");
 			if(GameCommon.NetworkStatus) {
-				MainMenu.Add("アップデート履歴");
-				MainMenu.Add("サークルからのお知らせ");
+				MainMenu.Add("Update History");
+				MainMenu.Add("Information");
 			}
-			MainMenu.Add("サークルサイトへ");
-			MainMenu.Add("サークル Twitter: @PrjDark へ");
-			MainMenu.Add("もどる");
+			MainMenu.Add("Go to Depelopver's web");
+			MainMenu.Add("Go to Twitter: @PrjDark");
+			MainMenu.Add("Back");
 			ShowDetail = false;
 			HelpInit = false;
 			HelpImage = "";
