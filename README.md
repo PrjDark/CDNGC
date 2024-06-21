@@ -30,7 +30,7 @@
 | \*_A_A | Midtime Engine HD v1.12.6 Final | GDI | Windows 95 - XP | - | x86 |
 | \*_A_B | Lightness Engine v1.0 | DirectX 9.0 | Windows XP - 8.1 | .NET 4, XNA 4.0 | x86 |
 | \*_B_B | Lightness Engine v1.1 | DirectX 9.0 | Windows 7 - 10 | .NET 4, XNA 4.0 | x86 |
-| \*_A_C | Lightness Engine v1.2 | DirectX 9.0 | Windows 7, 10 - 11 | Native, XNA 4.0 | x86 |
+| \*_A_C | Lightness Engine v1.2 | DirectX 9.0 | Windows 7, 10 - 11 | - | x86 |
 
 ### Online services and Support status
 | Branch | Online services | Contents Update | Support |
